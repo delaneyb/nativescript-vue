@@ -13,10 +13,12 @@
   "typings": "index.d.ts",
   "scripts": {
     "prepare": "patch-package",
+    "note": "prepare script never seemed to run with yarn, and is needed to expose flushCallbacks in next-tick.js",
+    "postinstall": "patch-package",
     "test": "jest",
     "tdd": "jest --watch",
     "dev": "npm run dev:core -- -w & npm run dev:compiler -- -w",
-    "dev:core": "rollup -c build/config.js --o dist/index.js --environment TARGET:nativescript-vue",
+    "dev:core": "rollup -c build/config.js -m inline --o dist/index.js --environment TARGET:nativescript-vue",
     "dev:compiler": "rollup -c build/config.js --environment TARGET:nativescript-vue-template-compiler",
     "build": "node build/build.js",
     "prettier": "prettier --write \"{{platform,__test__}/**/*.js,samples/app/*.js}\"",
@@ -81,7 +83,7 @@
     "rollup-plugin-resolve-aliases": "0.3.0",
     "semver": "7.3.2",
     "set-value": "3.0.2",
-    "vue": "2.6.12"
+    "vue": "^2.6.14"
   },
   "jest": {
     "verbose": true,
